@@ -8,4 +8,4 @@ I'd like to create an image and number recognition program that can take a scree
 Here is a Python package I found that might be relevant: <https://pypi.org/project/face-recognition/>
 
 Here is an example of a screenshot from the game:
-![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+![alt text](https://github.com/myu4/myLMSC261/blob/main/111Objects/IMG_5993.png "screenshot")
