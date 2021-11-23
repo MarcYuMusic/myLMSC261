@@ -1,4 +1,4 @@
 # HTML Group Project
-[Our Site](https://www.google.com)
+[Our Site](https://ncohen4.github.io/)
 
 I personally didn't face problems on my end. We decided we would split up the work exactly 3-ways. Nathaniel, who hosted the site, wrote his paragraph and the style sheet. Kayla wrote a paragraph and added audio. I wrote a paragraph and added a picture. I know they came into some problems with creating branches though and I asked if they needed my help, but they mostly figured it out. There were also some typos that they corrected (that contributed to some problems). I did help troubleshoot the style sheet because Nathaniel tried to copy something online but it was HTML and not a style sheet. For all my work, I referenced the demo website and it was very straightforward. My teammates were 10/10.
