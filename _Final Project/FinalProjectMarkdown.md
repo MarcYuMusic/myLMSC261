@@ -725,6 +725,25 @@ while i < len(champion_collection):
 
 (ex. INSERT INTO test_file (champ, node) VALUES('Agent Venom', 34);)
 
+Our final results should look like this:
+
+```
+sqlite3 test_file.db
+CREATE TABLE 'test_file' ('champ' text, 'node' integer);
+INSERT INTO test_file (champ, node) VALUES('Agent Venom', 34);
+INSERT INTO test_file (champ, node) VALUES('Wasp', 38);
+INSERT INTO test_file (champ, node) VALUES('Medusa', 49);
+INSERT INTO test_file (champ, node) VALUES('Thing', 50);
+INSERT INTO test_file (champ, node) VALUES('Vision Aarkus', 28);
+INSERT INTO test_file (champ, node) VALUES('Agent Venom', 51);
+INSERT INTO test_file (champ, node) VALUES('Mephisto', 15);
+INSERT INTO test_file (champ, node) VALUES('Black Widow CV', 36);
+INSERT INTO test_file (champ, node) VALUES('Man-Thing', 40);
+INSERT INTO test_file (champ, node) VALUES('Magneto Classic', 43);
+INSERT INTO test_file (champ, node) VALUES('Ebony Maw', 3);
+...
+```
+
 ...AND WE'RE DONE!
 
 ## Summary
