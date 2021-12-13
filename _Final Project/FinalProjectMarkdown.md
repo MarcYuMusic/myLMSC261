@@ -2,6 +2,7 @@
 
 ## Marvel Contest of Champions
 
+<strong>The What and the Why:</strong>  
 For my project, I created a program that can recognize faces and numbers from a game called Marvel's Contest of Champions, pair them together, and print the data in SQL.
 
 Marvel Contest of Champions is a fighting game with 200+ characters from the Marvel IP. As you play, you can recruit and level up these "champions".
@@ -19,8 +20,8 @@ Each battlemap has 55 Nodes (empty spots) to place your defenders. Each Node has
 With over 200 champions and 275 nodes, there are over 50,000 different combinations of champions and node. My job is to test all 50,000 combinations and computate the most mathematically optimal placements based on the available roster of all 30 players in my alliance.
 
 ## Logic and Databases: Google Sheets and SQL
-
-Google Sheets has its own "language", but also allows users to write in SQL. The following logic is done entirely in Google Sheets and SQL. To find the best possible placements, we need really, really good logic. And lots of data. Here's how we do it:
+<strong>The How (Part 1):</strong>  
+Google Sheets has its own "language", but also allows users to write in SQL. The following logic is done entirely in Google Sheets and SQL. To find the best possible placements, what we need is really, really good logic. And lots of data. Here's how we do it:
 
 1) Each player's roster is uploaded into a database (sorted by a "Class" that allows the optimizer to analyze sections of data at a time).
 
@@ -138,9 +139,7 @@ Another `FILTER` to filter data in which any column matches the inputted data fo
 ```
 
 ## Facial and Optical Character Recognition
-
-All of the above is done in Google Sheets and SQL. So where does Python come in? Facial recognition!
-
+<strong>The How (Part 2), Advantages, and Disadvantages:</strong>  
 At the end of each Alliance War, you can open a menu showing which champions were placed on which nodes, which is the first step to our process of taking data.
 
 ![Permutations](./markdown_img/screenshot1.jpg) 
@@ -746,7 +745,8 @@ INSERT INTO test_file (champ, node) VALUES('Ebony Maw', 3);
 
 ...AND WE'RE DONE!
 
-## Summary
+## Summary: Looking Ahead
+
 The steps to optimizing data is complex and many, but never impossible. The code above covers just the first step to my data optimization: tracking faces and printing data.
 
 Not only is this code the tip of the iceberg of the calculations that need to be made, but there's also so much more you can do with data, Python, and SQL.
