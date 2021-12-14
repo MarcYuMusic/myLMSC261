@@ -1,16 +1,10 @@
-# TUTORIALS USED FOR HELP
-# https://www.geeksforgeeks.org/measure-similarity-between-images-using-python-opencv/
-# https://learnopencv.com/otsu-thresholding-with-opencv/
-
 import cv2 
 import imutils
 import os
-import image_similarity_measures
 import image_similarity_measures.quality_metrics
 import pytesseract
 import numpy as np
 import sys
-from datetime import date
 
 class Champion: 
     def __init__(self, name, node):
@@ -116,16 +110,11 @@ def get_number(image):
     gray_image = cv2.pyrUp(gray_image)
     gray_image = cv2.pyrUp(gray_image)
     inverted = np.invert(gray_image)
-    # cv2.imshow('aa',inverted)
-    # cv2.waitKey()
     return pytesseract.image_to_string(inverted, config='--psm 6')
 
-def calc_closest_val(dict, checkMax, data_dir):
+def calc_closest_val(dict, data_dir):
         result = {}
-        if (checkMax):
-            closest = max(dict.values())
-        else:
-            closest = min(dict.values()) 
+        closest = max(dict.values())
         for key, value in dict.items():
             if (value == closest):
                 result[key] = closest
@@ -134,14 +123,12 @@ def calc_closest_val(dict, checkMax, data_dir):
                 return just_name
         return result
 
-def find_hero(image):
-    test_img = image
+def find_champ(test_img):
     values = {}
-    scale_percent = 100
-    width = int(test_img.shape[1] * scale_percent / 100)
-    height = int(test_img.shape[0] * scale_percent / 100)
+    width = int(test_img.shape[1])
+    height = int(test_img.shape[0])
     dim = (width, height)
-    data_dir = './faces/unknown_people/'
+    data_dir = './champions/'
     for file in os.listdir(data_dir):
         if sys.platform.startswith('darwin'):
             if file == '.DS_Store':
@@ -149,32 +136,23 @@ def find_hero(image):
         img_path = os.path.join(data_dir, file)
         data_img = cv2.imread(img_path)
         resized_img = cv2.resize(data_img, dim, interpolation = cv2.INTER_AREA)
-        values[img_path]= image_similarity_measures.quality_metrics.psnr(test_img, resized_img)
-    closest = calc_closest_val(values, True, data_dir)
-    return closest
+        values[img_path] = image_similarity_measures.quality_metrics.psnr(test_img, resized_img)
+    champion_name = calc_closest_val(values, data_dir)
+    return champion_name
     
 if __name__ == "__main__":
-    # try:   
-    #     sys.argv[3]
-    # except IndexError:  
-    #     print("Please include the name of all three screenshots")
-    #     sys.exit()
-
-    faces_path = "./faces/unknown_people/"
+    faces_path = "./champions/"
     faces = os.listdir(faces_path)
-    path = './test/test/'
-    r = 1
-    f = open("mcoc.sql", "w")
+    path = './screenshots/'
     screenshots = os.listdir(path)
-    year = date.today().strftime("%Y")
-    year = year.replace("20","")
-    currdate = year + date.today().strftime("%m%d")
-    tabletitle = "MCOC_Placements_" + currdate
-    print("sqlite3 " + tabletitle + ".db")
-    f.write("sqlite3 " + tabletitle + ".db\n")
-    print("CREATE TABLE '" + tabletitle + "' ('champ' text, 'node' integer);")
-    f.write("CREATE TABLE '" + tabletitle + "' ('champ' text, 'node' integer);\n")
+    filename = input("Enter SQL file name:")
+    f = open(filename + ".sql", "w")
+    print("sqlite3 " + filename + ".db")
+    f.write("sqlite3 " + filename + ".db\n")
+    print("CREATE TABLE '" + filename + "' ('champ' text, 'node' integer);")
+    f.write("CREATE TABLE '" + filename + "' ('champ' text, 'node' integer);\n")
     champion_collection = list()
+    r = 1
     while r < 4:
         img = cv2.imread(path + screenshots[r])
         img = imutils.resize(img, width=1400)
@@ -187,9 +165,7 @@ if __name__ == "__main__":
         while i < 4:
             while j < 5:
                 crop = img[a:b, c:d]
-                cv2.imshow('crop', crop)
-                # cv2.waitKey()
-                name = find_hero(crop)
+                name = find_champ(crop)
                 name = name.strip()
                 node = get_number(crop)
                 node = node.strip()
@@ -210,7 +186,6 @@ if __name__ == "__main__":
                 else:
                     while u < len(champion_collection):
                         if champion_collection[u].name != curr.name and champion_collection[u].node != curr.node:
-                            # print(champion_collection[u].name)
                             champion_collection.append(curr)
                             break
                         u += 1
@@ -222,11 +197,9 @@ if __name__ == "__main__":
             i += 1
         i = 0
         j = 0
-        duplicates = list()
         r += 1
-
     while i < len(champion_collection):
         curr = champion_collection[i]
-        print("INSERT INTO " + tabletitle + " (champ, node) VALUES('" + curr.name + "', " + curr.node + ");")
-        f.write("INSERT INTO " + tabletitle + " (champ, node) VALUES('" + curr.name + "', " + curr.node + ");\n")
+        print("INSERT INTO " + filename + " (champ, node) VALUES('" + curr.name + "', " + curr.node + ");")
+        f.write("INSERT INTO " + filename + " (champ, node) VALUES('" + curr.name + "', " + curr.node + ");\n")
         i += 1
